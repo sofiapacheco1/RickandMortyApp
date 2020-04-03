@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div>
+  <div>
+  <h2>Episodio: <b>{{ name }}</b> </h2>
+  </div>
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Fecha</th>
+          <th scope="col">Código</th>
+          <th scope="col">Personajes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> {{ air_date }} </td>
+          <td> {{ episode }} </td>
+          <td> 
+            {% for i in characters %}
+              <li>
+                <a href='/character/{{ i.id }}'> 
+                  {{ i.name }}
+                </a>
+              </li>
+            {% endfor %}
+          </td>  
+        </tr>
+      </tbody>
+      
+    </table>
+  </div>
+</div>
+
+{% endblock content %}

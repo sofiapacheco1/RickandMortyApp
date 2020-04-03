@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div>
+  <h2>
+    Personaje: <b>{{ name }}</b>
+  </h2>
+</div>
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Lugares</th>
+        <th scope="col">Episodios</th>
+        <th scope="col">Imagen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href='/location/{{ location_id }}'> {{ location }} </a></td>
+        <td>
+          {% for j in episodes %}
+            <li>
+              <a href='episode/{{ j.id }}'>
+                {{ j.name }}
+              </a>
+            </li>
+          {% endfor %}
+        </td>
+        <td><img src="{{ image }}"></td>
+      </tr>
+    </tbody>
+  </table>
+{% endblock content %}

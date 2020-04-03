@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+  <h2>Resultados búsqueda:</h2>
+</div>
+
+<div>
+
+  {% for  in athlete_list %}
+    ...
+  {% empty %}
+    No athletes
+  {% endfor %}
+  {% ifequal len() 0 %}
+    <p>No hay resultados</p>
+    <p>Intente nuevamente</p>
+  {% else %}
+    <p>jiji</p>  
+  {% endifequal %}
+</div>
+
+{% endblock content %}

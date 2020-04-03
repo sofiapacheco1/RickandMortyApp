@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div>
+  <h2> Lugar: <b>{{ name }}</b></h2>
+</div>
+<div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Tipo</th>
+      <th scope="col">Dimensión</th>
+      <th scope="col">Residentes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{type}}</td>
+      <td>{{dimension}}</td>
+      <td>
+        {% for i in residents %}
+          <li>
+            <a href='character/{{ i.id }}'> 
+              {{ i.name }}
+            </a>
+          </li>
+        {% endfor %}
+      </td>
+    </tr>
+  </tbody>
+  </table>
+</div>
+{% endblock content %}

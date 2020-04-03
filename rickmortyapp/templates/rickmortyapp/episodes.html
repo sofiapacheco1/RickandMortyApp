@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div>
+  <div>
+    <h2>Lista de Episodios de <b>Rick and Morty</b></h2>
+  </div>
+  <div>
+    <table class="table"> 
+    <thead>
+      <tr>
+        <th scope="col">Capítulo</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Código</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for list_episodes in results %}
+      <tr>
+        <td> {{ list_episodes.id }} </td>
+        <td> <a href='/episode/{{ list_episodes.id }}'>
+          {{ list_episodes.name }}   
+            </a> </td>
+        <td> {{ list_episodes.air_date }} </td>
+        <td> {{list_episodes.episode }} </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+  </div>
+</div>
+
+
+{% endblock content %}
+

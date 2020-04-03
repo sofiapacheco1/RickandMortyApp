@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8'>
+  <link rel='stylesheet' href="{% static 'css/bootstrap.min.css'%}">
+  <title>Rick and Morty App</title>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href='/'>Rick and Morty</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor03">
+      <form type="get" action="/search/" class="form-inline my-2 my-lg-0">
+        <input  id="search_box" name="search_box" class="form-control mr-sm-2" type="text" placeholder="Buscar...">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
+      </form>
+    </div>
+  </nav>
+</head>
+
+<body>
+  <div class="jumbotron background-color: #00000">
+    {% block content %}
+    {% endblock content %}
+  </div>
+</body>
+</html>
