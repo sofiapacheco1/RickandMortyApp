@@ -2,22 +2,53 @@
 
 {% block content %}
 <div>
-  <h2>Resultados búsqueda:</h2>
+  <div>
+    <h2>Resultados búsqueda:</h2>
+  </div>
+  <div>
+  <table class="table">
+    <thead>
+      <tr>
+        <td scope="col">Personajes</td>
+        <td scope="col">Lugares</td>
+        <td scope="col">Episodios</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          {% for i in character %}
+          <li>
+          <a href='/character/{{ i.id }}'>
+            {{ i.name }}
+          </a>
+          </li>
+          {% endfor %}
+        </td>
+        <td>
+          {% for i in location %}
+          <li>
+          <a href='/location/{{ i.id }}'>
+            {{ i.name }}
+          </a>
+          </li>
+          {% endfor %}
+        </td>
+        <td>
+          {% for i in episode %}
+          <li>
+          <a href='/episode/{{ i.id }}'>
+            {{ i.name }}
+          </a>
+          </li>
+          {% endfor %}
+        </td>
+
+      </tr>
+    </tbody>
+  
+  </table>
+   
+  </div>
 </div>
-
-<div>
-
-  {% for  in athlete_list %}
-    ...
-  {% empty %}
-    No athletes
-  {% endfor %}
-  {% ifequal len() 0 %}
-    <p>No hay resultados</p>
-    <p>Intente nuevamente</p>
-  {% else %}
-    <p>jiji</p>  
-  {% endifequal %}
-</div>
-
 {% endblock content %}

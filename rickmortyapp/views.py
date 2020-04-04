@@ -86,54 +86,58 @@ def search(request):
         search_query = request.GET.get('search_box', None)
 
     search_query = search_query.lower()
-    results = []
+    results = {}
 
     url_character = 'https://rickandmortyapi.com/api/character/?name=' + search_query
     filter_character = requests.get(url_character)
     filter_character = filter_character.json()
+  
     if 'results' in filter_character.keys():
-        results.append({'character': filter_character['results']})
+        results = {'character': filter_character['results']}
 
         while True:
             if filter_character['info']['next'] != '':
                 filter_character = requests.get(filter_character['info']['next'])
                 filter_character = filter_character.json()
-
-                results[0]['character'].extend(filter_character['results'])
+                results['character'].extend(filter_character['results'])
             else:
                 break
-
-        
-
+    
     url_location = 'https://rickandmortyapi.com/api/location/?name=' + search_query
     filter_location = requests.get(url_location)
     filter_location = filter_location.json()
     if 'results' in filter_location.keys():
-        results.append({'location': filter_location['results']})
+        results['location'] = filter_location['results']
 
         while True:
             if filter_location['info']['next'] != '':
                 filter_location = requests.get(filter_location['info']['next'])
                 filter_location = filter_location.json()
 
-                results[-1]['location'].extend(filter_location['results'])
+                results['location'].extend(filter_location['results'])
             else:
-                break
+               break
 
     url_episode = 'https://rickandmortyapi.com/api/episode/?name=' + search_query
     filter_episode = requests.get(url_episode)
     filter_episode = filter_episode.json()
     if 'results' in filter_episode.keys():
-        results.append({ 'episode': filter_episode['results']})
+        results['episode'] = filter_episode['results']
         while True:
             if filter_episode['info']['next'] != '':
                 filter_episode = requests.get(filter_episode['info']['next'])
                 filter_episode = filter_episode.json()
 
-                results[-1]['episode'].extend(filter_episode['results'])
+                results['episode'].extend(filter_episode['results'])
             else:
                 break
-
     
-    context = { 'results': results }
-    return render(request, 'search.html', context)
+    # context = { 'results': [{character},{location},{episode}] }
+    
+    #print(len(results))
+    #print(len(results[0].keys()))
+    #print(len(results[1].keys()))
+    #print(len(results[2].keys()))
+    print(results)
+    #return HttpResponse('HOLI:)')
+    return render(request, 'search.html', results)
