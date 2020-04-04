@@ -132,12 +132,4 @@ def search(request):
             else:
                 break
     
-    # context = { 'results': [{character},{location},{episode}] }
-    
-    #print(len(results))
-    #print(len(results[0].keys()))
-    #print(len(results[1].keys()))
-    #print(len(results[2].keys()))
-    print(results)
-    #return HttpResponse('HOLI:)')
     return render(request, 'search.html', results)
