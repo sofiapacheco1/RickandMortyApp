@@ -19,13 +19,16 @@
           <td> {{ air_date }} </td>
           <td> {{ episode }} </td>
           <td> 
-            {% for i in characters %}
+            {% ifequal characters '' %}
+            {% else %}
+              {% for i in characters %}
               <li>
                 <a href='/character/{{ i.id }}'> 
                   {{ i.name }}
                 </a>
               </li>
-            {% endfor %}
+              {% endfor %}
+            {% endifequal %}
           </td>  
         </tr>
       </tbody>

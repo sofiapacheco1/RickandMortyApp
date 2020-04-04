@@ -10,22 +10,47 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Lugares</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Especie</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Género</th>
+        <th scope="col">Origen</th>
+        <th scope="col">Lugar</th>
         <th scope="col">Episodios</th>
         <th scope="col">Imagen</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a href='/location/{{ location_id }}'> {{ location }} </a></td>
+        <td>{{status}}</td>
+        <td>{{species}}</td>
+        <td>{{type}}</td>
+        <td>{{gender}}</td>
         <td>
-          {% for j in episodes %}
-            <li>
-              <a href='episode/{{ j.id }}'>
-                {{ j.name }}
-              </a>
-            </li>
-          {% endfor %}
+          {% ifequal origin_id '' %}
+            {{origin}}
+          {% else %}
+            <a href='/location/{{ origin_id }}'> {{origin}} </a>
+          {% endifequal %}
+        </td>
+        <td>
+          {% ifequal location_id '' %}
+            {{location}}
+          {% else %}
+            <a href='/location/{{ location_id }}'> {{ location }} </a>
+          {% endifequal %}
+        </td>
+        <td>
+          {% ifequal episodes '' %}
+          {% else %}
+            {% for j in episodes %}
+              <li>
+                <a href='/episode/{{ j.id }}'>
+                  {{ j.name }}
+                </a>
+              </li>
+            {% endfor %}
+          {% endifequal %}
         </td>
         <td><img src="{{ image }}"></td>
       </tr>

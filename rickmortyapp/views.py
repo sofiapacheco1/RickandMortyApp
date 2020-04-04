@@ -25,15 +25,19 @@ def episode(request, id):
     episode = requests.get(url)
     episode = episode.json()
 
-    characters_id = ''
-    for i in episode['characters']:
-        characters_id += str(i.split('/')[-1]) + ','
-    characters_id = characters_id[:len(characters_id) - 1]
-    
-    url = 'https://rickandmortyapi.com/api/character/' + characters_id
-    characters = requests.get(url)
-    characters = characters.json()
-    # paginacion ?
+    if (len(episode['characters'])) != 0:
+        characters_id = ''
+        for i in episode['characters']:
+            characters_id += str(i.split('/')[-1]) + ','
+        characters_id = characters_id[:len(characters_id) - 1]
+        
+        url = 'https://rickandmortyapi.com/api/character/' + characters_id
+        characters = requests.get(url)
+        characters = characters.json()
+        if isinstance(characters, dict):
+            characters = [characters]
+    else:
+        characters = ''
 
     context = { 'name': episode['name'], 'air_date': episode['air_date'], 'episode': episode['episode'],
     'characters': characters }
@@ -45,36 +49,48 @@ def character(request, id):
     character = requests.get(url)
     character = character.json()
     
-    # episodes 
-    episodes_id = ''
-    for i in character['episode']:
-        episodes_id += str(i.split('/')[-1]) + ','
-    episodes_id = episodes_id[:len(episodes_id) - 1]
-    url = 'https://rickandmortyapi.com/api/episode/' + episodes_id
-    episodes = requests.get(url)
-    episodes = episodes.json()
-    # paginacion ?
+    if len(character['episode']) != 0:
+        episodes_id = ''
+        for i in character['episode']:
+            episodes_id += str(i.split('/')[-1]) + ','
+        episodes_id = episodes_id[:len(episodes_id) - 1]
+        url = 'https://rickandmortyapi.com/api/episode/' + episodes_id
+        episodes = requests.get(url)
+        episodes = episodes.json()
+        if isinstance(episodes, dict):
+            episodes = [episodes]
+    else: 
+        episodes = ''
 
     location_id = character['location']['url'].split('/')[-1]
-
-    context = { 'name': character['name'], 'episodes': episodes,
+    origin_id = character['origin']['url'].split('/')[-1]
+    
+    context = { 'name': character['name'], 'status': character['status'], 'species': character['species'],
+    'type': character['type'], 'gender': character['gender'], 'episodes': episodes,
     'location': character['location']['name'], 'location_id': location_id,
+    'origin': character['origin']['name'], 'origin_id': origin_id,
     'image': character['image'] }
+    
     return render(request, 'character.html', context)
 
 def location(request, id):
     url = 'https://rickandmortyapi.com/api/location/' + str(id)
     location = requests.get(url)
     location = location.json()
-
+    
     #residents 
-    residents_id = ''
-    for i in location['residents']:
-        residents_id += str(i.split('/')[-1]) + ','
-    residents_id = residents_id[:len(residents_id) - 1]
-    url = 'https://rickandmortyapi.com/api/character/' + residents_id
-    residents = requests.get(url)
-    residents = residents.json()
+    if len(location['residents']) != 0:
+        residents_id = ''
+        for i in location['residents']:
+            residents_id += str(i.split('/')[-1]) + ','
+        residents_id = residents_id[:len(residents_id) - 1]
+        url = 'https://rickandmortyapi.com/api/character/' + residents_id
+        residents = requests.get(url)
+        residents = residents.json()
+        if isinstance(residents, dict):
+            residents = [residents]
+    else:
+        residents = ''
 
     context = { 'name': location['name'], 'type': location['type'],
     'dimension': location['dimension'], 'residents': residents }

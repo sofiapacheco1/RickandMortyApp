@@ -19,13 +19,17 @@
       <td>{{type}}</td>
       <td>{{dimension}}</td>
       <td>
-        {% for i in residents %}
-          <li>
-            <a href='character/{{ i.id }}'> 
-              {{ i.name }}
-            </a>
-          </li>
-        {% endfor %}
+        {% ifequal residents '' %}
+          No hay residentes 
+        {% else %}
+          {% for i in residents %}
+            <li>
+              <a href='/character/{{ i.id }}'> 
+                {{ i.name }}
+              </a>
+            </li>
+          {% endfor %}
+        {% endifequal %}
       </td>
     </tr>
   </tbody>
