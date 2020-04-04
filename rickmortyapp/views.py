@@ -70,8 +70,9 @@ def character(request, id):
     'location': character['location']['name'], 'location_id': location_id,
     'origin': character['origin']['name'], 'origin_id': origin_id,
     'image': character['image'] }
-    
+
     return render(request, 'character.html', context)
+
 
 def location(request, id):
     url = 'https://rickandmortyapi.com/api/location/' + str(id)
