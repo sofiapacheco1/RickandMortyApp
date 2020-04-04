@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = ')o8ix1^s_kp(s#=20oi24qwb=23dcr-x70aye69efpuldgu$=*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['glacial-garden-31463.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
