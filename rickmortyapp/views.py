@@ -6,7 +6,8 @@ import sys
 
 
 def index(request):
-    url = 'https://rickandmortyapi.com/api/episode/'
+    
+    url = 'https://integracion-rick-morty-api.herokuapp.com/api/episode/'
     response = requests.get(url)
     response = response.json()
     context = { 'results' : response['results'] }
@@ -21,7 +22,7 @@ def index(request):
     return render(request, 'episodes.html', context)
 
 def episode(request, id):
-    url = 'https://rickandmortyapi.com/api/episode/' + str(id)
+    url = 'https://integracion-rick-morty-api.herokuapp.com/api/episode/' + str(id)
     episode = requests.get(url)
     episode = episode.json()
 
@@ -31,7 +32,7 @@ def episode(request, id):
             characters_id += str(i.split('/')[-1]) + ','
         characters_id = characters_id[:len(characters_id) - 1]
         
-        url = 'https://rickandmortyapi.com/api/character/' + characters_id
+        url = 'https://integracion-rick-morty-api.herokuapp.com/api/character/' + characters_id
         characters = requests.get(url)
         characters = characters.json()
         if isinstance(characters, dict):
@@ -45,7 +46,7 @@ def episode(request, id):
     return render(request, 'episode_detail.html', context)
 
 def character(request, id):
-    url = 'https://rickandmortyapi.com/api/character/' + str(id)
+    url = 'https://integracion-rick-morty-api.herokuapp.com/api/character/' + str(id)
     character = requests.get(url)
     character = character.json()
     
@@ -54,7 +55,7 @@ def character(request, id):
         for i in character['episode']:
             episodes_id += str(i.split('/')[-1]) + ','
         episodes_id = episodes_id[:len(episodes_id) - 1]
-        url = 'https://rickandmortyapi.com/api/episode/' + episodes_id
+        url = 'https://integracion-rick-morty-api.herokuapp.com/api/episode/' + episodes_id
         episodes = requests.get(url)
         episodes = episodes.json()
         if isinstance(episodes, dict):
@@ -75,7 +76,7 @@ def character(request, id):
 
 
 def location(request, id):
-    url = 'https://rickandmortyapi.com/api/location/' + str(id)
+    url = 'https://integracion-rick-morty-api.herokuapp.com/api/location/' + str(id)
     location = requests.get(url)
     location = location.json()
     
@@ -85,7 +86,7 @@ def location(request, id):
         for i in location['residents']:
             residents_id += str(i.split('/')[-1]) + ','
         residents_id = residents_id[:len(residents_id) - 1]
-        url = 'https://rickandmortyapi.com/api/character/' + residents_id
+        url = 'https://integracion-rick-morty-api.herokuapp.com/api/character/' + residents_id
         residents = requests.get(url)
         residents = residents.json()
         if isinstance(residents, dict):
@@ -105,7 +106,7 @@ def search(request):
     search_query = search_query.lower()
     results = {}
 
-    url_character = 'https://rickandmortyapi.com/api/character/?name=' + search_query
+    url_character = 'https://integracion-rick-morty-api.herokuapp.com/api/character/?name=' + search_query
     filter_character = requests.get(url_character)
     filter_character = filter_character.json()
   
@@ -120,7 +121,7 @@ def search(request):
             else:
                 break
     
-    url_location = 'https://rickandmortyapi.com/api/location/?name=' + search_query
+    url_location = 'https://integracion-rick-morty-api.herokuapp.com/api/location/?name=' + search_query
     filter_location = requests.get(url_location)
     filter_location = filter_location.json()
     if 'results' in filter_location.keys():
@@ -135,7 +136,7 @@ def search(request):
             else:
                break
 
-    url_episode = 'https://rickandmortyapi.com/api/episode/?name=' + search_query
+    url_episode = 'https://integracion-rick-morty-api.herokuapp.com/api/episode/?name=' + search_query
     filter_episode = requests.get(url_episode)
     filter_episode = filter_episode.json()
     if 'results' in filter_episode.keys():
